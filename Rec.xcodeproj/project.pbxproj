@@ -1,0 +1,532 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA000001 /* RecApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000001 /* RecApp.swift */; };
+		AA000002 /* Script.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000002 /* Script.swift */; };
+		AA000003 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000003 /* AppState.swift */; };
+		AA000004 /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000004 /* MainWindow.swift */; };
+		AA000005 /* ScriptListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000005 /* ScriptListView.swift */; };
+		AA000006 /* ScriptEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000006 /* ScriptEditorView.swift */; };
+		AA000007 /* TeleprompterPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000007 /* TeleprompterPanelController.swift */; };
+		AA000008 /* TeleprompterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000008 /* TeleprompterView.swift */; };
+		AA000009 /* ScrollEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000009 /* ScrollEngine.swift */; };
+		AA000010 /* VoiceTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000010 /* VoiceTracker.swift */; };
+		AA000011 /* RemoteServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000011 /* RemoteServer.swift */; };
+		AA000012 /* ScriptStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000012 /* ScriptStore.swift */; };
+		AA000013 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000013 /* SettingsView.swift */; };
+		AA000014 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000014 /* GeneralSettingsView.swift */; };
+		AA000015 /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000015 /* AppearanceSettingsView.swift */; };
+		AA000016 /* PositionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000016 /* PositionSettingsView.swift */; };
+		AA000017 /* ControlsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000017 /* ControlsSettingsView.swift */; };
+		AA000018 /* RemoteSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000018 /* RemoteSettingsView.swift */; };
+		AA000019 /* RemoteControlHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000019 /* RemoteControlHTML.swift */; };
+		AA000020 /* KeyboardShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000020 /* KeyboardShortcuts.swift */; };
+		AA000021 /* NotchDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000021 /* NotchDetector.swift */; };
+		AA000022 /* ScrollWheelGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000024 /* ScrollWheelGesture.swift */; };
+		AA000023 /* OptionsPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000025 /* OptionsPopover.swift */; };
+		AA000026 /* RecLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000026 /* RecLogo.swift */; };
+		AA000027 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB000027 /* Assets.xcassets */; };
+		B21A8D452F8DCF8B00704863 /* SpeakerKit in Frameworks */ = {isa = PBXBuildFile; productRef = B21A8D442F8DCF8B00704863 /* SpeakerKit */; };
+		B21A8D472F8DCF8B00704863 /* TTSKit in Frameworks */ = {isa = PBXBuildFile; productRef = B21A8D462F8DCF8B00704863 /* TTSKit */; };
+		B21A8D492F8DCF8B00704863 /* WhisperKit in Frameworks */ = {isa = PBXBuildFile; productRef = B21A8D482F8DCF8B00704863 /* WhisperKit */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AB000001 /* RecApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecApp.swift; sourceTree = "<group>"; };
+		AB000002 /* Script.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Script.swift; sourceTree = "<group>"; };
+		AB000003 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		AB000004 /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
+		AB000005 /* ScriptListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptListView.swift; sourceTree = "<group>"; };
+		AB000006 /* ScriptEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptEditorView.swift; sourceTree = "<group>"; };
+		AB000007 /* TeleprompterPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleprompterPanelController.swift; sourceTree = "<group>"; };
+		AB000008 /* TeleprompterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleprompterView.swift; sourceTree = "<group>"; };
+		AB000009 /* ScrollEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollEngine.swift; sourceTree = "<group>"; };
+		AB000010 /* VoiceTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceTracker.swift; sourceTree = "<group>"; };
+		AB000011 /* RemoteServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteServer.swift; sourceTree = "<group>"; };
+		AB000012 /* ScriptStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptStore.swift; sourceTree = "<group>"; };
+		AB000013 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AB000014 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
+		AB000015 /* AppearanceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsView.swift; sourceTree = "<group>"; };
+		AB000016 /* PositionSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionSettingsView.swift; sourceTree = "<group>"; };
+		AB000017 /* ControlsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsSettingsView.swift; sourceTree = "<group>"; };
+		AB000018 /* RemoteSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSettingsView.swift; sourceTree = "<group>"; };
+		AB000019 /* RemoteControlHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlHTML.swift; sourceTree = "<group>"; };
+		AB000020 /* KeyboardShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcuts.swift; sourceTree = "<group>"; };
+		AB000021 /* NotchDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchDetector.swift; sourceTree = "<group>"; };
+		AB000022 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB000023 /* Rec.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rec.entitlements; sourceTree = "<group>"; };
+		AB000024 /* ScrollWheelGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollWheelGesture.swift; sourceTree = "<group>"; };
+		AB000025 /* OptionsPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsPopover.swift; sourceTree = "<group>"; };
+		AB000026 /* RecLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecLogo.swift; sourceTree = "<group>"; };
+		AB000027 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AB000099 /* Rec.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rec.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AC000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B21A8D492F8DCF8B00704863 /* WhisperKit in Frameworks */,
+				B21A8D452F8DCF8B00704863 /* SpeakerKit in Frameworks */,
+				B21A8D472F8DCF8B00704863 /* TTSKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AD000001 = {
+			isa = PBXGroup;
+			children = (
+				AD000002 /* Rec */,
+				AD000099 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AD000002 /* Rec */ = {
+			isa = PBXGroup;
+			children = (
+				AB000001 /* RecApp.swift */,
+				AD000003 /* Models */,
+				AD000004 /* Views */,
+				AD000008 /* Services */,
+				AD000009 /* Utilities */,
+				AD000010 /* Resources */,
+				AB000027 /* Assets.xcassets */,
+				AB000022 /* Info.plist */,
+				AB000023 /* Rec.entitlements */,
+			);
+			path = Rec;
+			sourceTree = "<group>";
+		};
+		AD000003 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AB000002 /* Script.swift */,
+				AB000003 /* AppState.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AD000004 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AD000005 /* Main */,
+				AD000006 /* Teleprompter */,
+				AD000007 /* Settings */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AD000005 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				AB000004 /* MainWindow.swift */,
+				AB000005 /* ScriptListView.swift */,
+				AB000006 /* ScriptEditorView.swift */,
+				AB000025 /* OptionsPopover.swift */,
+				AB000026 /* RecLogo.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		AD000006 /* Teleprompter */ = {
+			isa = PBXGroup;
+			children = (
+				AB000007 /* TeleprompterPanelController.swift */,
+				AB000008 /* TeleprompterView.swift */,
+			);
+			path = Teleprompter;
+			sourceTree = "<group>";
+		};
+		AD000007 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				AB000013 /* SettingsView.swift */,
+				AB000014 /* GeneralSettingsView.swift */,
+				AB000015 /* AppearanceSettingsView.swift */,
+				AB000016 /* PositionSettingsView.swift */,
+				AB000017 /* ControlsSettingsView.swift */,
+				AB000018 /* RemoteSettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		AD000008 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AB000009 /* ScrollEngine.swift */,
+				AB000010 /* VoiceTracker.swift */,
+				AB000011 /* RemoteServer.swift */,
+				AB000012 /* ScriptStore.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AD000009 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AB000020 /* KeyboardShortcuts.swift */,
+				AB000021 /* NotchDetector.swift */,
+				AB000024 /* ScrollWheelGesture.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		AD000010 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AD000011 /* Remote */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		AD000011 /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				AB000019 /* RemoteControlHTML.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		AD000099 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AB000099 /* Rec.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AE000001 /* Rec */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF000003 /* Build configuration list for PBXNativeTarget "Rec" */;
+			buildPhases = (
+				AE000002 /* Sources */,
+				AC000001 /* Frameworks */,
+				AE000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Rec;
+			productName = Rec;
+			productReference = AB000099 /* Rec.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AE000099 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					AE000001 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = AF000001 /* Build configuration list for PBXProject "Rec" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AD000001;
+			packageReferences = (
+				B21A8D432F8DCF8B00704863 /* XCRemoteSwiftPackageReference "WhisperKit" */,
+			);
+			productRefGroup = AD000099 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AE000001 /* Rec */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AE000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA000027 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AE000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA000001 /* RecApp.swift in Sources */,
+				AA000002 /* Script.swift in Sources */,
+				AA000003 /* AppState.swift in Sources */,
+				AA000004 /* MainWindow.swift in Sources */,
+				AA000005 /* ScriptListView.swift in Sources */,
+				AA000006 /* ScriptEditorView.swift in Sources */,
+				AA000007 /* TeleprompterPanelController.swift in Sources */,
+				AA000008 /* TeleprompterView.swift in Sources */,
+				AA000009 /* ScrollEngine.swift in Sources */,
+				AA000010 /* VoiceTracker.swift in Sources */,
+				AA000011 /* RemoteServer.swift in Sources */,
+				AA000012 /* ScriptStore.swift in Sources */,
+				AA000013 /* SettingsView.swift in Sources */,
+				AA000014 /* GeneralSettingsView.swift in Sources */,
+				AA000015 /* AppearanceSettingsView.swift in Sources */,
+				AA000016 /* PositionSettingsView.swift in Sources */,
+				AA000017 /* ControlsSettingsView.swift in Sources */,
+				AA000018 /* RemoteSettingsView.swift in Sources */,
+				AA000019 /* RemoteControlHTML.swift in Sources */,
+				AA000020 /* KeyboardShortcuts.swift in Sources */,
+				AA000021 /* NotchDetector.swift in Sources */,
+				AA000022 /* ScrollWheelGesture.swift in Sources */,
+				AA000023 /* OptionsPopover.swift in Sources */,
+				AA000026 /* RecLogo.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AF000101 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AF000102 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		AF000201 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Rec/Rec.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Rec/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Rec;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paula.rec;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		AF000202 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Rec/Rec.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Rec/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Rec;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paula.rec;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AF000001 /* Build configuration list for PBXProject "Rec" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF000101 /* Debug */,
+				AF000102 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF000003 /* Build configuration list for PBXNativeTarget "Rec" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF000201 /* Debug */,
+				AF000202 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B21A8D432F8DCF8B00704863 /* XCRemoteSwiftPackageReference "WhisperKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/argmaxinc/WhisperKit";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B21A8D442F8DCF8B00704863 /* SpeakerKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B21A8D432F8DCF8B00704863 /* XCRemoteSwiftPackageReference "WhisperKit" */;
+			productName = SpeakerKit;
+		};
+		B21A8D462F8DCF8B00704863 /* TTSKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B21A8D432F8DCF8B00704863 /* XCRemoteSwiftPackageReference "WhisperKit" */;
+			productName = TTSKit;
+		};
+		B21A8D482F8DCF8B00704863 /* WhisperKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B21A8D432F8DCF8B00704863 /* XCRemoteSwiftPackageReference "WhisperKit" */;
+			productName = WhisperKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = AE000099 /* Project object */;
+}

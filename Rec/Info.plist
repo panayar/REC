@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Rec needs microphone access for Voice Tracking — the teleprompter matches scroll speed to your speaking pace. All processing happens on-device.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Rec uses on-device speech recognition to track your voice and auto-scroll the teleprompter text. No audio data is sent externally.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Rec uses local network access to enable remote control from your phone over Wi-Fi.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_http._tcp</string>
+	</array>
+</dict>
+</plist>
