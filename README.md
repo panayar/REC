@@ -74,6 +74,4 @@ Everything runs on device. No accounts, no telemetry, no cloud. Audio never leav
 
 MIT
 
-<div align="center">
-<sub>Built with <a href="https://claude.com/claude-code">Claude Code</a></sub>
-</div>
+
