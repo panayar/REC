@@ -61,17 +61,12 @@ struct ScriptEditorView: View {
             }
             .overlay(alignment: .topLeading) {
                 if script.content.isEmpty {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Untitled")
-                            .font(.system(size: 28, weight: .bold))
-                            .foregroundStyle(.quaternary)
-                        Text("Start writing, or paste your script here...")
-                            .font(.system(size: 15))
-                            .foregroundStyle(.quaternary)
-                    }
-                    .padding(.leading, 37)
-                    .padding(.top, 24)
-                    .allowsHitTesting(false)
+                    Text("Start writing, or paste your script here…")
+                        .font(.system(size: 15))
+                        .foregroundStyle(.quaternary)
+                        .padding(.leading, 37)
+                        .padding(.top, 24)
+                        .allowsHitTesting(false)
                 }
             }
             .onDrop(of: [.plainText, .fileURL], isTargeted: nil) { providers in

@@ -39,8 +39,14 @@ final class AppState: ObservableObject {
     // Stealth mode — hide teleprompter from screen sharing
     @AppStorage("stealthMode") var stealthMode: Bool = true
 
+    // Onboarding — only shows on first launch
+    @AppStorage("onboardingCompleted") var onboardingCompleted: Bool = false
+
     // Panel controller reference
     weak var panelController: TeleprompterPanelController?
+
+    // Remote control server — lives for the lifetime of the app
+    let remoteServer = RemoteServer()
 
     var scrollMode: ScrollMode {
         get { ScrollMode(rawValue: scrollModeRaw) ?? .manual }

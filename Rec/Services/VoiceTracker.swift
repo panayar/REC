@@ -35,6 +35,12 @@ class VoiceTracker: ObservableObject {
     private var whisperSamples: [Float] = []
     private var levelUpdateCounter = 0
 
+    // Audio activity gate — prevents advancing the cursor on hallucinated words
+    // that Apple Speech sometimes produces during silence.
+    private var lastLoudAudioTime: CFTimeInterval = 0
+    private let audioActivityThreshold: Float = 0.05
+    private let silenceGracePeriod: CFTimeInterval = 0.5
+
     // Script
     private var scriptWords: [String] = []
     private var onWordIndexChanged: ((Int) -> Void)?
@@ -143,6 +149,8 @@ class VoiceTracker: ObservableObject {
         confirmedIndex = 0
         lastAppleWordCount = 0
         sessionWordOffset = 0
+        lastTranscriptLength = 0
+        previousLastWord = ""
         isFinished = false
         shouldRun = true
 
@@ -199,6 +207,9 @@ class VoiceTracker: ObservableObject {
 
         lastAppleWordCount = 0
 
+        // IMPORTANT: assign request BEFORE installing tap, so no audio is dropped
+        self.recognitionRequest = request
+
         inputNode.installTap(onBus: 0, bufferSize: 1024, format: hwFormat) { [weak self] buffer, _ in
             guard let self = self, self.shouldRun else { return }
             guard let data = buffer.floatChannelData?[0] else { return }
@@ -207,12 +218,15 @@ class VoiceTracker: ObservableObject {
             // Feed to Apple Speech
             self.recognitionRequest?.append(buffer)
 
-            // Audio level
+            // Audio level + activity gate
             self.levelUpdateCounter += 1
             if self.levelUpdateCounter % 3 == 0 {
                 var rms: Float = 0
                 vDSP_rmsqv(data, 1, &rms, vDSP_Length(count))
                 let level = min(1.0, rms * 6.0)
+                if level > self.audioActivityThreshold {
+                    self.lastLoudAudioTime = CACurrentMediaTime()
+                }
                 DispatchQueue.main.async { self.audioLevel = level }
             }
 
@@ -258,7 +272,6 @@ class VoiceTracker: ObservableObject {
             }
         }
 
-        self.recognitionRequest = request
         isTracking = true
         debugInfo = "Listening..."
 
@@ -273,6 +286,9 @@ class VoiceTracker: ObservableObject {
     /// Previous transcript length — to detect only NEW words
     private var lastTranscriptLength = 0
 
+    /// Last `last word` we saw — detects in-place revisions of the final token
+    private var previousLastWord: String = ""
+
     private func handleAppleSpeechResult(wordCount: Int, text: String) {
         guard shouldRun else { return }
 
@@ -284,53 +300,61 @@ class VoiceTracker: ObservableObject {
 
         guard !spokenWords.isEmpty else { return }
 
-        // Only process if transcript changed
-        let currentLength = spokenWords.count
-        guard currentLength != lastTranscriptLength else { return }
-        lastTranscriptLength = currentLength
+        // Show what the model actually heard — last ~6 words
+        let tail = spokenWords.suffix(6).joined(separator: " ")
+        debugInfo = tail
 
-        debugInfo = String(text.suffix(25))
+        // Determine which words are NEW since last update.
+        // Case 1: transcript grew → last `delta` words are new.
+        // Case 2: transcript same length but last word changed → Apple revised it.
+        let previousLength = lastTranscriptLength
+        let currentLastWord = spokenWords.last ?? ""
+        lastTranscriptLength = spokenWords.count
 
-        // Match spoken words against script from confirmed position
-        // Use the last N spoken words as an anchor to find position
-        let anchorSize = min(6, spokenWords.count)
-        let anchor = Array(spokenWords.suffix(anchorSize))
+        let wordsToCheck: [String]
+        if spokenWords.count > previousLength {
+            wordsToCheck = Array(spokenWords.suffix(spokenWords.count - previousLength))
+        } else if currentLastWord != previousLastWord && !currentLastWord.isEmpty {
+            // In-place revision — re-check only the last word
+            wordsToCheck = [currentLastWord]
+        } else {
+            return
+        }
+        previousLastWord = currentLastWord
 
-        // Search forward from current position
-        let searchStart = max(0, confirmedIndex - 2)
-        let searchEnd = min(scriptWords.count, confirmedIndex + 30)
+        // Duolingo-style: each spoken word advances the cursor by one step
+        // OR catches up past words Apple missed. The lookahead window scales
+        // with word length: longer words are distinctive enough to jump farther
+        // safely, while short words stay conservative (they're often ambiguous).
+        var advanced = false
+        for word in wordsToCheck {
+            guard confirmedIndex < scriptWords.count else { break }
 
-        var bestPos = confirmedIndex
-        var bestScore = 0
+            // How far ahead we'll scan for this word.
+            // Wider windows recover from mis-heard words without stranding the cursor.
+            let maxSkip: Int
+            if word.count >= 5 {
+                maxSkip = 7      // distinctive word → safe to jump past several missed ones
+            } else if word.count >= 4 {
+                maxSkip = 3
+            } else {
+                maxSkip = 1      // short words too ambiguous for wide skip
+            }
 
-        for i in searchStart..<searchEnd {
-            var score = 0
-            for (j, word) in anchor.enumerated() {
-                let idx = i + j
-                guard idx < scriptWords.count else { break }
-                if wordsMatch(word, scriptWords[idx]) {
-                    score += 1
+            let limit = min(maxSkip, scriptWords.count - confirmedIndex - 1)
+            guard limit >= 0 else { continue }
+            for offset in 0...limit {
+                if wordsMatch(word, scriptWords[confirmedIndex + offset]) {
+                    confirmedIndex += offset + 1
+                    advanced = true
+                    break
                 }
             }
-            if score > bestScore {
-                bestScore = score
-                bestPos = i + anchor.count
-            }
+            // No match within window → Apple mis-recognized / filler word.
+            // Keep cursor, try the next spoken word.
         }
 
-        // Also try simple sequential matching for single-word advances
-        // This catches word-by-word progress even when anchor matching fails
-        let lastSpoken = spokenWords.last ?? ""
-        for offset in 0..<min(4, scriptWords.count - confirmedIndex) {
-            if wordsMatch(lastSpoken, scriptWords[confirmedIndex + offset]) {
-                let seqPos = confirmedIndex + offset + 1
-                if seqPos > bestPos { bestPos = seqPos }
-                break
-            }
-        }
-
-        if bestPos > confirmedIndex {
-            confirmedIndex = min(bestPos, scriptWords.count)
+        if advanced {
             currentWordIndex = confirmedIndex
             onWordIndexChanged?(confirmedIndex)
         }
@@ -348,6 +372,7 @@ class VoiceTracker: ObservableObject {
     private func handleSpeechSessionEnd() {
         sessionWordOffset += lastAppleWordCount
         lastTranscriptLength = 0
+        previousLastWord = ""
         tearDownSpeech()
 
         guard shouldRun else { return }
@@ -371,6 +396,9 @@ class VoiceTracker: ObservableObject {
         // Re-tap the audio into the new request
         // (the audio engine is still running from startAudioAndSpeech)
 
+        // Assign request BEFORE installing tap (no dropped audio)
+        self.recognitionRequest = request
+
         recognitionTask = recognizer.recognitionTask(with: request) { [weak self] result, error in
             guard let self = self else { return }
 
@@ -387,8 +415,6 @@ class VoiceTracker: ObservableObject {
                 }
             }
         }
-
-        self.recognitionRequest = request
 
         // Re-install tap to feed new request
         // Need to remove old tap first, then add new one
@@ -463,49 +489,12 @@ class VoiceTracker: ObservableObject {
         }
     }
 
-    /// Use Whisper transcript to correct the position if Apple Speech got out of sync
+    /// Whisper correction disabled — it can push the cursor ahead of what the
+    /// user has actually spoken. Duolingo-style tracking follows the user's voice,
+    /// it doesn't try to catch up to a transcript. Apple Speech's real-time stream
+    /// is our single source of truth.
     private func correctPositionWithWhisper(_ transcript: String) {
-        let spoken = transcript
-            .components(separatedBy: .whitespacesAndNewlines)
-            .filter { !$0.isEmpty }
-            .map { norm($0) }
-
-        guard spoken.count >= 3 else { return }
-
-        // Take last 5 words from Whisper and find where they are in the script
-        let anchor = Array(spoken.suffix(min(5, spoken.count)))
-
-        // Search in a window around current position
-        let searchStart = max(0, confirmedIndex - 10)
-        let searchEnd = min(scriptWords.count - 1, confirmedIndex + 20)
-        guard searchStart <= searchEnd else { return }
-
-        var bestScore = 0
-        var bestPos = confirmedIndex
-
-        for i in searchStart...searchEnd {
-            var score = 0
-            for (j, word) in anchor.enumerated() {
-                let idx = i + j
-                guard idx < scriptWords.count else { break }
-                if wordsMatch(word, scriptWords[idx]) { score += 1 }
-            }
-            if score > bestScore {
-                bestScore = score
-                bestPos = i + anchor.count
-            }
-        }
-
-        // Only correct if Whisper is confident (3+ matching words)
-        // and the correction moves us forward
-        if bestScore >= 3 && bestPos > confirmedIndex {
-            let correction = bestPos - confirmedIndex
-            if correction <= 10 { // don't jump too far
-                confirmedIndex = bestPos
-                currentWordIndex = bestPos
-                onWordIndexChanged?(bestPos)
-            }
-        }
+        // intentionally no-op
     }
 
     // MARK: - Cleanup
@@ -527,15 +516,20 @@ class VoiceTracker: ObservableObject {
     private func wordsMatch(_ a: String, _ b: String) -> Bool {
         if a == b { return true }
         if a.isEmpty || b.isEmpty { return false }
+        // Short words ("the", "a", "is", "it") must match exactly.
+        // Otherwise every filler word fuzzy-matches a word ahead in the script.
+        if a.count < 4 || b.count < 4 { return false }
+        // Words ≥ 4 chars: allow 1 edit (plural/typo tolerance)
+        if levenshtein(a, b) <= 1 { return true }
+        // Words with both ≥ 6 chars: allow 2 edits (verb forms, mishearings)
+        if min(a.count, b.count) >= 6 && levenshtein(a, b) <= 2 { return true }
+        // Long stem match: one word is a prefix of the other, ≥ 5 chars
+        // Catches "running"/"runs", "excited"/"excite", "focks"/"fox" fails safely
+        // because short `b` prevents above rules from matching.
         let minLen = min(a.count, b.count)
-        if minLen >= 3 {
-            let pl = max(3, minLen - 2)
-            if a.prefix(pl) == b.prefix(pl) { return true }
+        if minLen >= 5 && (a.hasPrefix(b.prefix(minLen)) || b.hasPrefix(a.prefix(minLen))) {
+            return true
         }
-        if minLen >= 3 && levenshtein(a, b) <= 1 { return true }
-        if minLen >= 5 && levenshtein(a, b) <= 2 { return true }
-        if a.count >= 4 && b.contains(a) { return true }
-        if b.count >= 4 && a.contains(b) { return true }
         return false
     }
 

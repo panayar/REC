@@ -7,6 +7,7 @@ struct MainWindow: View {
     @Query(sort: \Script.updatedAt, order: .reverse) private var scripts: [Script]
     @State private var selectedScript: Script?
     @State private var searchText = ""
+    @State private var showOnboarding = false
 
     var filteredScripts: [Script] {
         if searchText.isEmpty { return scripts }
@@ -35,6 +36,9 @@ struct MainWindow: View {
             }
         }
         .navigationTitle("")
+        .background(WindowConfigurator { window in
+            window.titlebarSeparatorStyle = .none
+        })
         .onReceive(NotificationCenter.default.publisher(for: .createNewScript)) { _ in
             createScript()
         }
@@ -44,6 +48,21 @@ struct MainWindow: View {
                 createScript()
             } else {
                 selectedScript = scripts.first
+            }
+            // Show onboarding on first launch
+            if !appState.onboardingCompleted {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    showOnboarding = true
+                }
+            }
+        }
+        .overlay {
+            if showOnboarding {
+                ZStack {
+                    OnboardingView(isPresented: $showOnboarding)
+                        .environmentObject(appState)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
     }
@@ -88,6 +107,29 @@ struct MainWindow: View {
                     selectedScript = nil
                 }
                 modelContext.delete(script)
+            }
+        }
+    }
+}
+
+// Reliable NSWindow accessor — fires after the SwiftUI view is attached to a window.
+struct WindowConfigurator: NSViewRepresentable {
+    let configure: (NSWindow) -> Void
+
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView()
+        DispatchQueue.main.async {
+            if let window = view.window {
+                configure(window)
+            }
+        }
+        return view
+    }
+
+    func updateNSView(_ view: NSView, context: Context) {
+        DispatchQueue.main.async {
+            if let window = view.window {
+                configure(window)
             }
         }
     }

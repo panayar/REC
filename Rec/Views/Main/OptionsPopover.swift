@@ -1,8 +1,10 @@
 import SwiftUI
 import AVFoundation
+import CoreImage.CIFilterBuiltins
 
 struct OptionsPopover: View {
     @EnvironmentObject var appState: AppState
+    @ObservedObject private var remoteServer = AppState.shared.remoteServer
     @State private var micStatus: AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .audio)
 
     var body: some View {
@@ -94,12 +96,94 @@ struct OptionsPopover: View {
             }
             .toggleStyle(.switch)
             .tint(.purple)
+
+            Divider().opacity(0.5)
+
+            // Remote control
+            Toggle(isOn: $appState.remoteEnabled) {
+                HStack(spacing: 8) {
+                    Image(systemName: "iphone.radiowaves.left.and.right")
+                        .font(.system(size: 11))
+                        .foregroundStyle(.secondary)
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text("Remote Control")
+                            .font(.system(size: 13))
+                        Text("Scan QR to control from your phone")
+                            .font(.system(size: 10))
+                            .foregroundStyle(.tertiary)
+                    }
+                }
+            }
+            .toggleStyle(.switch)
+            .tint(.purple)
+            .onChange(of: appState.remoteEnabled) { _, enabled in
+                if enabled {
+                    appState.remoteServer.start(appState: appState)
+                } else {
+                    appState.remoteServer.stop()
+                }
+            }
+
+            if appState.remoteEnabled && remoteServer.isRunning && !remoteServer.serverURL.isEmpty {
+                remoteConnectionView
+            }
         }
         .padding(16)
         .frame(width: 300)
         .onAppear {
             micStatus = AVCaptureDevice.authorizationStatus(for: .audio)
         }
+    }
+
+    // MARK: - Remote Connection Info
+
+    private var remoteConnectionView: some View {
+        HStack(alignment: .center, spacing: 12) {
+            if let qr = generateQR(remoteServer.serverURL) {
+                Image(nsImage: qr)
+                    .interpolation(.none)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80, height: 80)
+                    .padding(4)
+                    .background(.white, in: RoundedRectangle(cornerRadius: 6, style: .continuous))
+            }
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Connected on Wi-Fi")
+                    .font(.system(size: 11, weight: .semibold))
+                    .foregroundStyle(.secondary)
+                Text(remoteServer.serverURL)
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(.primary)
+                    .textSelection(.enabled)
+                    .lineLimit(2)
+                    .truncationMode(.middle)
+                HStack(spacing: 4) {
+                    Circle()
+                        .fill(.green)
+                        .frame(width: 5, height: 5)
+                    Text("\(remoteServer.connectedClients) connected")
+                        .font(.system(size: 10))
+                        .foregroundStyle(.tertiary)
+                }
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(10)
+        .background(.purple.opacity(0.06), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+    }
+
+    private func generateQR(_ text: String) -> NSImage? {
+        guard !text.isEmpty else { return nil }
+        let filter = CIFilter.qrCodeGenerator()
+        filter.message = Data(text.utf8)
+        filter.correctionLevel = "M"
+        guard let ciImage = filter.outputImage?.transformed(by: CGAffineTransform(scaleX: 8, y: 8)) else { return nil }
+        let rep = NSCIImageRep(ciImage: ciImage)
+        let image = NSImage(size: rep.size)
+        image.addRepresentation(rep)
+        return image
     }
 
     // MARK: - Mic Warning

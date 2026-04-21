@@ -20,8 +20,9 @@ class RemoteServer: ObservableObject {
             let parameters = NWParameters.tcp
             parameters.includePeerToPeer = true
             listener = try NWListener(using: parameters, on: port)
+            NSLog("[Rec] RemoteServer listener created on port \(appState.remotePort)")
         } catch {
-            print("Failed to create listener: \(error)")
+            NSLog("[Rec] RemoteServer failed to create listener: \(error)")
             return
         }
 

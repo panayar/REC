@@ -47,6 +47,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         teleprompterPanelController = TeleprompterPanelController()
         AppState.shared.panelController = teleprompterPanelController
+
+        // Auto-start the remote server on launch if the user enabled it
+        let enabled = AppState.shared.remoteEnabled
+        NSLog("[Rec] Remote auto-start check: remoteEnabled=\(enabled), port=\(AppState.shared.remotePort)")
+        if enabled {
+            AppState.shared.remoteServer.start(appState: AppState.shared)
+        }
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {

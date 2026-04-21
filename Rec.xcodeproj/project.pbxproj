@@ -31,6 +31,7 @@
 		AA000022 /* ScrollWheelGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000024 /* ScrollWheelGesture.swift */; };
 		AA000023 /* OptionsPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000025 /* OptionsPopover.swift */; };
 		AA000026 /* RecLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000026 /* RecLogo.swift */; };
+		AA000028 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB000028 /* OnboardingView.swift */; };
 		AA000027 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB000027 /* Assets.xcassets */; };
 		B21A8D452F8DCF8B00704863 /* SpeakerKit in Frameworks */ = {isa = PBXBuildFile; productRef = B21A8D442F8DCF8B00704863 /* SpeakerKit */; };
 		B21A8D472F8DCF8B00704863 /* TTSKit in Frameworks */ = {isa = PBXBuildFile; productRef = B21A8D462F8DCF8B00704863 /* TTSKit */; };
@@ -64,6 +65,7 @@
 		AB000024 /* ScrollWheelGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollWheelGesture.swift; sourceTree = "<group>"; };
 		AB000025 /* OptionsPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsPopover.swift; sourceTree = "<group>"; };
 		AB000026 /* RecLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecLogo.swift; sourceTree = "<group>"; };
+		AB000028 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		AB000027 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB000099 /* Rec.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rec.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -133,6 +135,7 @@
 				AB000006 /* ScriptEditorView.swift */,
 				AB000025 /* OptionsPopover.swift */,
 				AB000026 /* RecLogo.swift */,
+				AB000028 /* OnboardingView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				AA000022 /* ScrollWheelGesture.swift in Sources */,
 				AA000023 /* OptionsPopover.swift in Sources */,
 				AA000026 /* RecLogo.swift in Sources */,
+				AA000028 /* OnboardingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

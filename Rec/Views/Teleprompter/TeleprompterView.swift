@@ -76,7 +76,7 @@ struct TeleprompterOverlayView: View {
 
                     // Voice indicator — top left
                     // Top bar: voice status left, close button right
-                    VStack {
+                    VStack(spacing: 3) {
                         HStack(spacing: 0) {
                             // Voice status chip — left (hide when mic denied)
                             if !micDenied && !scrollEngine.voiceMicDenied && (scrollEngine.isVoiceActive || scrollEngine.voiceModelLoading) {
@@ -108,6 +108,29 @@ struct TeleprompterOverlayView: View {
                         }
                         .padding(.top, 8)
                         .padding(.horizontal, 10)
+
+                        // Live transcript — shows what the model actually hears
+                        if appState.scrollMode == .voice
+                           && !micDenied && !scrollEngine.voiceMicDenied
+                           && scrollEngine.isVoiceActive
+                           && scrollEngine.voiceModelReady
+                           && !scrollEngine.voiceDebugInfo.isEmpty
+                           && scrollEngine.voiceDebugInfo != "Listening..."
+                           && scrollEngine.voiceDebugInfo != "Ready"
+                           && scrollEngine.voiceDebugInfo != "Done" {
+                            Text(scrollEngine.voiceDebugInfo)
+                                .font(.system(size: 10, weight: .medium, design: .monospaced))
+                                .foregroundStyle(.green.opacity(0.85))
+                                .lineLimit(1)
+                                .truncationMode(.head)
+                                .padding(.horizontal, 7)
+                                .padding(.vertical, 2.5)
+                                .background(.black, in: Capsule())
+                                .padding(.horizontal, 10)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .transition(.opacity)
+                        }
+
                         Spacer()
                     }
 

@@ -2,7 +2,8 @@ import SwiftUI
 
 struct RemoteSettingsView: View {
     @EnvironmentObject var appState: AppState
-    @StateObject private var remoteServer = RemoteServer()
+    @ObservedObject private var remoteServerObserved = AppState.shared.remoteServer
+    private var remoteServer: RemoteServer { appState.remoteServer }
 
     var body: some View {
         Form {
