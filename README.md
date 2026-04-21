@@ -1,9 +1,6 @@
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="rec-logo.svg">
-  <img src="rec-logo.svg" alt="Rec" width="200" style="background:#111; padding:24px; border-radius:16px;" />
-</picture>
+<img src="rec-banner.svg" alt="Rec" width="560" />
 
 ### A teleprompter that lives in your Mac's notch.
 Invisible during screen sharing. Your voice sets the pace.
