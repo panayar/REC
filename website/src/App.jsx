@@ -25,7 +25,7 @@ function FlowingLine() {
   const fullText = poem.repeat(6)
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden hidden md:block">
       <svg
         className="absolute top-0 left-0 w-full"
         style={{ height: '100%' }}
@@ -140,29 +140,29 @@ function formatStars(n) {
 function Hero() {
   const stars = useGitHubStars('panayar/REC')
   return (
-    <section className="min-h-screen flex items-center pt-16 pb-16 px-6 relative z-10">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+    <section className="min-h-screen flex items-center pt-20 md:pt-16 pb-16 px-6 relative z-10">
+      <div className="max-w-6xl mx-auto w-full">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left: Copy */}
           <div>
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[12px] font-medium text-emerald-700 mb-8 shadow-[0_2px_16px_rgba(34,197,94,0.2),inset_0_1px_1px_rgba(255,255,255,0.6)] bg-gradient-to-b from-emerald-100/80 to-emerald-50/60 border border-emerald-200/50 backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 md:py-2.5 rounded-full text-[11px] md:text-[12px] font-medium text-emerald-700 mb-6 md:mb-8 shadow-[0_2px_16px_rgba(34,197,94,0.2),inset_0_1px_1px_rgba(255,255,255,0.6)] bg-gradient-to-b from-emerald-100/80 to-emerald-50/60 border border-emerald-200/50 backdrop-blur-md">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
               Voice Tracking Available
             </div>
 
-            <h1 className="text-[48px] md:text-[56px] font-bold tracking-[-0.03em] leading-[1.08] mb-6 text-text">
+            <h1 className="text-[36px] sm:text-[44px] md:text-[56px] font-bold tracking-[-0.03em] leading-[1.08] mb-5 md:mb-6 text-text">
               Prompting for{' '}
               <span className="font-serif italic font-normal">creators</span>{' '}
               on Mac
             </h1>
 
-            <p className="text-[17px] text-text-secondary leading-relaxed mb-8 max-w-md">
+            <p className="text-[15px] md:text-[17px] text-text-secondary leading-relaxed mb-7 md:mb-8 max-w-md">
               A teleprompter that lives in your Mac's notch. Invisible during screen sharing. Your voice sets the pace.
             </p>
 
             {/* CTAs */}
-            <div className="flex items-center gap-3 mb-10">
+            <div className="flex flex-wrap items-center gap-3 mb-10">
               <a
                 href="#download"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-white font-medium hover:bg-accent-hover transition-all cursor-pointer text-[14px]"
@@ -189,9 +189,9 @@ function Hero() {
           </div>
 
           {/* Right: Realistic meeting mockup */}
-          <div className="relative flex justify-center">
+          <div className="relative flex justify-center overflow-hidden">
             <motion.div
-              className="relative"
+              className="relative origin-top scale-[0.62] sm:scale-[0.78] md:scale-100 -my-[13vh] sm:-my-[6vh] md:my-0"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
@@ -297,7 +297,7 @@ function Hero() {
                   </div>
 
                   {/* Participants — Zoom style: bottom right */}
-                  <div className="absolute bottom-14 right-3 flex flex-col gap-1.5">
+                  <div className="absolute bottom-14 right-3 flex flex-col gap-2">
                     {[
                       { name: 'Sarah K.', img: '/avatar1.jpg' },
                       { name: 'Mike R.', img: '/avatar2.jpg' },
@@ -305,32 +305,32 @@ function Hero() {
                     ].map((p, i) => (
                       <motion.div
                         key={i}
-                        className={`w-[72px] h-[52px] rounded-lg bg-[#2a2a2a] flex flex-col items-center justify-center relative overflow-hidden border border-white/5`}
+                        className={`w-[104px] h-[76px] rounded-xl bg-[#2a2a2a] flex flex-col items-center justify-center relative overflow-hidden border border-white/5`}
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 1.2 + i * 0.15 }}
                       >
                         {/* Circle avatar centered with green ring for You */}
-                        <div className={`relative mb-0.5 ${p.you ? '' : ''}`}>
-                          <div className={`w-8 h-8 rounded-full overflow-hidden ${p.you ? 'border-2 border-emerald-400' : 'border-2 border-white/10'}`}>
+                        <div className={`relative mb-1 ${p.you ? '' : ''}`}>
+                          <div className={`w-11 h-11 rounded-full overflow-hidden ${p.you ? 'border-2 border-emerald-400' : 'border-2 border-white/10'}`}>
                             <img src={p.img} alt={p.name} className="w-full h-full object-cover" />
                           </div>
                           {p.you && (
                             <motion.div
-                              className="absolute -inset-1 rounded-full border border-emerald-400/50"
+                              className="absolute -inset-1.5 rounded-full border border-emerald-400/50"
                               animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0, 0.5] }}
                               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                             />
                           )}
                         </div>
                         {/* Name */}
-                        <span className={`text-[6px] font-medium ${p.you ? 'text-emerald-300' : 'text-white/40'}`}>{p.name}</span>
+                        <span className={`text-[9px] font-medium ${p.you ? 'text-emerald-300' : 'text-white/40'}`}>{p.name}</span>
 
 
                         {/* Mic icon for others */}
                         {!p.you && (
-                          <div className="absolute top-1 right-1">
-                            <svg className="w-2.5 h-2.5 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+                          <div className="absolute top-1.5 right-1.5">
+                            <svg className="w-3 h-3 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
                           </div>
                         )}
                       </motion.div>
@@ -423,11 +423,11 @@ function Features() {
   ]
 
   return (
-    <section id="features" className="py-24 px-6 relative z-10">
+    <section id="features" className="py-16 md:py-24 px-6 relative z-10">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <p className="text-[13px] text-text-muted uppercase tracking-widest mb-3">Features</p>
-          <h2 className="text-[36px] md:text-[44px] font-bold tracking-[-0.03em] leading-tight">
+          <h2 className="text-[28px] sm:text-[36px] md:text-[44px] font-bold tracking-[-0.03em] leading-tight">
             We keep details{' '}
             <span className="font-serif italic font-normal">strong</span> and simple
           </h2>
@@ -620,11 +620,11 @@ function DemoSection() {
   const videoRef = useRef(null)
   const [muted, setMuted] = useState(true)
   return (
-    <section className="py-24 px-6 relative z-10">
+    <section className="py-16 md:py-24 px-6 relative z-10">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
           <p className="text-[13px] text-text-muted uppercase tracking-widest mb-3">See it in action</p>
-          <h2 className="text-[36px] md:text-[44px] font-bold tracking-[-0.03em] leading-tight">
+          <h2 className="text-[28px] sm:text-[36px] md:text-[44px] font-bold tracking-[-0.03em] leading-tight">
             Watch Rec{' '}
             <span className="font-serif italic font-normal">come alive</span>
           </h2>
@@ -689,7 +689,7 @@ function HowItWorks() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <p className="text-[13px] text-text-muted uppercase tracking-widest mb-3">How it works</p>
-          <h2 className="text-[36px] md:text-[44px] font-bold tracking-[-0.03em] leading-tight">
+          <h2 className="text-[28px] sm:text-[36px] md:text-[44px] font-bold tracking-[-0.03em] leading-tight">
             Three steps to{' '}
             <span className="font-serif italic font-normal">read naturally</span>
           </h2>
@@ -702,7 +702,7 @@ function HowItWorks() {
               'rounded-tl-2xl rounded-tr-[64px] rounded-br-2xl rounded-bl-[64px]',
               'rounded-tl-[64px] rounded-tr-2xl rounded-br-[64px] rounded-bl-2xl',
             ]
-            const tilts = ['-rotate-1', 'rotate-1', '-rotate-1']
+            const tilts = ['md:-rotate-1', 'md:rotate-1', 'md:-rotate-1']
             return (
               <div
                 key={i}
@@ -743,13 +743,13 @@ function HowItWorks() {
 function VoiceMode() {
   const [muted, setMuted] = useState(true)
   return (
-    <section id="voice" className="py-24 px-6 relative z-10">
+    <section id="voice" className="py-16 md:py-24 px-6 relative z-10">
       <div className="max-w-6xl mx-auto">
         {/* Editorial header — left-aligned instead of centered stack */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4">
           <div className="max-w-xl">
             <p className="text-[11px] text-text-muted uppercase tracking-[0.2em] mb-4 font-medium">— Voice tracking</p>
-            <h2 className="text-[40px] md:text-[52px] font-bold tracking-[-0.03em] leading-[1.05]">
+            <h2 className="text-[32px] sm:text-[40px] md:text-[52px] font-bold tracking-[-0.03em] leading-[1.05]">
               Reads along<br />
               <span className="font-serif italic font-normal text-text-secondary">with your voice.</span>
             </h2>
@@ -781,7 +781,7 @@ function VoiceMode() {
             {/* Private */}
             <div className="rounded-3xl bg-surface-2 border border-border-light p-8 relative overflow-hidden">
               <div className="flex items-start justify-between mb-6">
-                <div className="text-[64px] font-bold tracking-[-0.05em] leading-none text-text">100<span className="text-[28px] align-top text-text-secondary">%</span></div>
+                <div className="text-[52px] sm:text-[64px] font-bold tracking-[-0.05em] leading-none text-text">100<span className="text-[22px] sm:text-[28px] align-top text-text-secondary">%</span></div>
                 <svg className="w-6 h-6 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                 </svg>
@@ -820,10 +820,10 @@ function VoiceMode() {
 /* ─── Download ─── */
 function Download() {
   return (
-    <section id="download" className="py-24 px-6 relative z-10">
+    <section id="download" className="py-16 md:py-24 px-6 relative z-10">
       <div className="max-w-3xl mx-auto text-center">
         <img src="/app-icon.png" alt="Rec" className="w-20 h-20 mx-auto mb-6 rounded-2xl shadow-lg" />
-        <h2 className="text-[36px] md:text-[44px] font-bold tracking-[-0.03em] leading-tight mb-4">
+        <h2 className="text-[28px] sm:text-[36px] md:text-[44px] font-bold tracking-[-0.03em] leading-tight mb-4">
           Ready to read{' '}
           <span className="font-serif italic font-normal">naturally?</span>
         </h2>
